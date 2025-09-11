@@ -2,20 +2,37 @@ import { useSignal } from "@preact/signals";
 
 type Items = "hong" | "chung" | "round" | "fight";
 
+const generateFightLog = (
+  fightNumber: number,
+  roundNumber: number,
+  chungPoints: number,
+  hongPoints: number,
+) => {
+  const log =
+    `Fight ${fightNumber}, Round ${roundNumber}, Chung ${chungPoints}, Hong ${hongPoints}`;
+  console.log(log);
+  return log;
+};
+
 export default function Scoreboard() {
+  const fightNumber = useSignal(1);
+  const roundNumber = useSignal(1);
   const hongPoints = useSignal(0);
   const chungPoints = useSignal(0);
-  const roundNumber = useSignal(1);
-  const fightNumber = useSignal(1);
 
   const handleClick = (item: Items) => {
-    console.log("clicou no item", item);
-
     item === "hong" && hongPoints.value++;
     item === "chung" && chungPoints.value++;
 
     if (item === "round") {
       if (confirm("Tem certeza que deseja iniciar o próximo round?")) {
+        generateFightLog(
+          fightNumber.value,
+          roundNumber.value,
+          chungPoints.value,
+          hongPoints.value,
+        );
+
         roundNumber.value++;
         hongPoints.value = 0;
         chungPoints.value = 0;
@@ -24,6 +41,13 @@ export default function Scoreboard() {
 
     if (item === "fight") {
       if (confirm("Tem certeza que deseja iniciar a próxima luta?")) {
+        generateFightLog(
+          fightNumber.value,
+          roundNumber.value,
+          chungPoints.value,
+          hongPoints.value,
+        );
+
         fightNumber.value++;
         roundNumber.value = 1;
         hongPoints.value = 0;
@@ -38,7 +62,7 @@ export default function Scoreboard() {
     item === "chung" && chungPoints.value > 0 && chungPoints.value--;
 
     if (item === "round" && roundNumber.value > 1) {
-      if (confirm("Tem certeza que deseja voltar ao round anterior?")) {
+      if (confirm("Tem certeza que deseja voltar a luta anterior?")) {
         roundNumber.value--;
         hongPoints.value = 0;
         chungPoints.value = 0;
