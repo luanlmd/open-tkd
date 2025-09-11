@@ -12,7 +12,6 @@ export default define.page(function Home(ctx) {
         <title>Fresh counter</title>
       </Head>
       <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-
         <Counter />
         <a href="/board" class="mt-4 text-blue-500 underline">
           <Button>Go to Scoreboard</Button>
