@@ -50,6 +50,45 @@ const downloadLogsAsCSV = (logs: FightState[]) => {
 };
 
 export default function Scoreboard() {
+  const gameLoop = () => {
+    const gamepads = navigator.getGamepads();
+    if (!gamepads) {
+      return;
+    }
+
+    const gp = gamepads[0];
+    if (!gp) {
+      return;
+    }
+
+    if (gp.buttons[1].pressed) {
+      console.log("b");
+      handleClick("hong");
+      setTimeout(() => gameLoop(), 500);
+      return;
+    }
+
+    if (gp.buttons[2].pressed) {
+      console.log("x");
+      handleClick("chung");
+      setTimeout(() => gameLoop(), 500);
+      return;
+    }
+
+    setTimeout(() => gameLoop(), 10);
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onGamepadConnected = (e: Event) => {
+      gameLoop();
+    };
+    window.addEventListener("gamepadconnected", onGamepadConnected);
+    return () => {
+      window.removeEventListener("gamepadconnected", onGamepadConnected);
+    };
+  }, []);
+
   const fightLogs = useSignal<FightState[]>([]);
 
   const fightNumber = useSignal(1);
