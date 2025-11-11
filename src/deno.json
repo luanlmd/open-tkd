@@ -23,7 +23,9 @@
     "tailwindcss": "npm:tailwindcss@^4.1.10",
     "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.12",
     "react": "https://esm.sh/preact@10.27.1/compat",
-    "react-dom": "https://esm.sh/preact@10.27.1/compat"
+    "react-dom": "https://esm.sh/preact@10.27.1/compat",
+    "react/jsx-runtime": "https://esm.sh/preact@10.27.1/jsx-runtime",
+    "react/jsx-dev-runtime": "https://esm.sh/preact@10.27.1/jsx-dev-runtime"
   },
   "compilerOptions": {
     "lib": ["dom", "dom.asynciterable", "dom.iterable", "deno.ns"],
